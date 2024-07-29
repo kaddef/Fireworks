@@ -45,6 +45,7 @@ function updateRaindropCount(newCount) {
 }
 
 function setup() {
+    frameRate(60)
     createCanvas(windowWidth, windowHeight);
     for (let i = 0; i < fCount; i++) {
         fireworks.unshift(new Firework)
@@ -72,7 +73,7 @@ function windowResized() {
 
 class Firework {
     posX = Math.random() * windowWidth;
-    posY = windowHeight + Math.random()*200 - 100;
+    posY = windowHeight + Math.random()*100+200;
     color = color(Math.round(Math.random() * 255), Math.round(Math.random() * 255), Math.round(Math.random() * 255));
     horizonalSpeed = 25;
     direction = this.posX < windowWidth/2 ? 1 : -1
@@ -81,7 +82,7 @@ class Firework {
     disabled = false;
 
     constructor() {
-        console.log(this.verticalSpeed)
+        
     }
     reset() {
         this.posX = Math.random() * windowWidth;
@@ -99,7 +100,7 @@ class Firework {
         this.posX += this.verticalSpeed;
         this.horizonalSpeed -= this.gravity;
         //console.log(this.horizonalSpeed)
-        if (this.horizonalSpeed <= Math.random()*-20) {
+        if (this.horizonalSpeed <= -1) {
             this.explode();
         }
     }
@@ -133,6 +134,7 @@ class Particle {
     horizonalSpeed = Math.random() * 12 - 6;
     verticalSpeed = Math.random() * 12 - 6;
     gravity = gravity;
+    drag = 0.8
     disabled = false
     lifespan;
 
@@ -146,6 +148,7 @@ class Particle {
     move() {
         this.posY -= this.horizonalSpeed;
         this.posX += this.verticalSpeed;
+        
         this.horizonalSpeed -= this.gravity;
         //console.log(this.horizonalSpeed)
         if(this.posY >= windowHeight - 0 || this.posX <= 0 || this.posX >= windowWidth - 0) {
